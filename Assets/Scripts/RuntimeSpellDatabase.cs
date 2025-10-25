@@ -19,7 +19,6 @@ public class RuntimeSpellDatabase : MonoBehaviour
         spellDict = new();
         foreach (var spell in spellList)
         {
-
             spellDict.Add(HandsignToID(spell.handsigns), spell);
         }
     }
@@ -43,15 +42,5 @@ public class RuntimeSpellDatabase : MonoBehaviour
             spellId += ((int)handsigns[i] << i);
         }
         return spellId;
-    }
-
-    public void Fire()
-    {
-        Debug.Log("Fire");
-    }
-
-    public void Ice()
-    {
-        Debug.Log("Ice");
     }
 }
