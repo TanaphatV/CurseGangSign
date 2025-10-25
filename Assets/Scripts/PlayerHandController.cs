@@ -1,42 +1,63 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 using System.Collections.Generic;
 public class PlayerHandController : MonoBehaviour
 {
     [SerializeField] private RuntimeSpellDatabase spellDatabase;
 
-    private List<Handsign> handsign;
+    private List<Handsign> handsigns;
+
+    public Action<List<Handsign>> onHandsignChange;
 
     private void Start()
     {
-        handsign = new();
+        handsigns = new();
     }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            handsign.Add(Handsign.Tiger);
+            AddSign(Handsign.Tiger);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            handsign.Add(Handsign.Hippo);
+            AddSign(Handsign.Hippo);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            handsign.Add(Handsign.Crane);
+            AddSign(Handsign.Crane);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            AddSign(Handsign.Rat);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            AddSign(Handsign.Fox);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            handsign.Clear();
+            handsigns.Clear();
+            onHandsignChange?.Invoke(handsigns);
         }
 
-
         if (Input.GetMouseButtonDown(0))
-            spellDatabase.TryExecuteSpell(handsign);
+        {
+            spellDatabase.TryExecuteSpell(handsigns);
+            onHandsignChange?.Invoke(handsigns);
+        }
+    }
 
-
+    private void AddSign(Handsign handsign)
+    {
+        handsigns.Add(handsign);
+        onHandsignChange?.Invoke(handsigns);
     }
 }
 
