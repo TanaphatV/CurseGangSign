@@ -1,25 +1,29 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine.UI;
+using AYellowpaper.SerializedCollections;
 
 public class PlayerHandController : MonoBehaviour
 {
+    [SerializeField] private float signBufferDecayTime;
+    
+    [Header("Reference")]
     [SerializeField] private RuntimeSpellDatabase spellDatabase;
+    [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem signParticle;
+    [SerializeField] private SerializedDictionary<Handsign, GameObject> handsignSprites;
 
     private List<Handsign> handsigns;
 
     public Action<List<Handsign>> onHandsignChange;
 
-    [Header("UI Elements")]
-    public Image HandVisual;
-    public Image Tiger;
-    public Image Hippo;
-    public Image Crane;
-    public Image Rat;
-    public Image Fox;
+    [NonSerialized] private bool _allowSignChange = true;
+    private Handsign upcomingSign;
+
+    private float _bufferStartTime;
+    private Coroutine _bufferRoutine;
+    private Handsign _bufferedHandsign;
 
     private void Start()
     {
@@ -30,35 +34,27 @@ public class PlayerHandController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            AddSign(Handsign.Tiger);
-            HandVisual.sprite = Tiger.sprite;
+            TryPerformSign(Handsign.Tiger);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            AddSign(Handsign.Hippo);
-            HandVisual.sprite = Hippo.sprite;
+            TryPerformSign(Handsign.Hippo);
             
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            AddSign(Handsign.Crane);
-            HandVisual.sprite = Crane.sprite;
-            
+            TryPerformSign(Handsign.Crane);
         }
 
         if (Input.GetKeyDown(KeyCode.V))
         {
-            AddSign(Handsign.Rat);
-            HandVisual.sprite = Rat.sprite;
-
+            TryPerformSign(Handsign.Rat);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            AddSign(Handsign.Fox);
-            HandVisual.sprite = Fox.sprite;
-            
+            TryPerformSign(Handsign.Fox);   
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -74,10 +70,60 @@ public class PlayerHandController : MonoBehaviour
         }
     }
 
-    private void AddSign(Handsign handsign)
+    public void PlaySignParticle()
     {
-        handsigns.Add(handsign);
+        signParticle.Stop();
+        signParticle.Play();
+    }
+
+    private void TryPerformSign(Handsign handsign)
+    {
+        if (!_allowSignChange)
+        {
+            BufferSign(handsign);
+            return;
+        }
+
+        animator.SetTrigger("Change");
+        upcomingSign = handsign;
+        _allowSignChange = false;
+    }
+
+    private void BufferSign(Handsign handsign)
+    {
+        _bufferStartTime = Time.time;
+        _bufferedHandsign = handsign;
+        if(_bufferRoutine == null)
+            _bufferRoutine = StartCoroutine(PerformSignBufferIE());
+    }
+
+    IEnumerator PerformSignBufferIE()
+    {
+        yield return new WaitUntil(() => _allowSignChange);
+
+        if (Time.time - _bufferStartTime < signBufferDecayTime)
+            TryPerformSign(_bufferedHandsign);
+
+        _bufferRoutine = null;
+    }
+
+    public void SetSign(Handsign handsign)
+    {
+        foreach (var _sprite in handsignSprites.Values)
+            _sprite.SetActive(false);
+        handsignSprites[handsign].SetActive(true);
+    }
+
+    public void SetAllowNextSign()
+    {
+        _allowSignChange = true;
+    }
+
+    public void TriggerSignChange()
+    {
+        handsigns.Add(upcomingSign);
         onHandsignChange?.Invoke(handsigns);
+        SetSign(upcomingSign);
     }
 }
 
