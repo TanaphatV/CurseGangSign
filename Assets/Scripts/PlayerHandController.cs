@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine.UI;
+
 public class PlayerHandController : MonoBehaviour
 {
     [SerializeField] private RuntimeSpellDatabase spellDatabase;
@@ -9,6 +12,14 @@ public class PlayerHandController : MonoBehaviour
     private List<Handsign> handsigns;
 
     public Action<List<Handsign>> onHandsignChange;
+
+    [Header("UI Elements")]
+    public Image HandVisual;
+    public Image Tiger;
+    public Image Hippo;
+    public Image Crane;
+    public Image Rat;
+    public Image Fox;
 
     private void Start()
     {
@@ -20,25 +31,34 @@ public class PlayerHandController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Z))
         {
             AddSign(Handsign.Tiger);
+            HandVisual.sprite = Tiger.sprite;
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
             AddSign(Handsign.Hippo);
+            HandVisual.sprite = Hippo.sprite;
+            
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
             AddSign(Handsign.Crane);
+            HandVisual.sprite = Crane.sprite;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.V))
         {
             AddSign(Handsign.Rat);
+            HandVisual.sprite = Rat.sprite;
+
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
             AddSign(Handsign.Fox);
+            HandVisual.sprite = Fox.sprite;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.R))
