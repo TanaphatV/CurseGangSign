@@ -23,7 +23,7 @@ public class PlayerHandController : MonoBehaviour
 
     private float _bufferStartTime;
     private Coroutine _bufferRoutine;
-    private Handsign _bufferedHandsign;
+    private Action _bufferedAction;
 
     private void Start()
     {
@@ -63,11 +63,21 @@ public class PlayerHandController : MonoBehaviour
             onHandsignChange?.Invoke(handsigns);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && handsigns.Count > 0)
         {
-            spellDatabase.TryExecuteSpell(handsigns);
-            onHandsignChange?.Invoke(handsigns);
+            if (_allowSignChange)
+                Fire();
+            else
+                BufferAction(Fire);
         }
+    }
+
+    private void Fire()
+    {
+        animator.SetTrigger("Fire");
+        spellDatabase.ExecuteSpell(handsigns);
+        handsigns.Clear();
+        onHandsignChange?.Invoke(handsigns);
     }
 
     public void PlaySignParticle()
@@ -80,7 +90,7 @@ public class PlayerHandController : MonoBehaviour
     {
         if (!_allowSignChange)
         {
-            BufferSign(handsign);
+            BufferAction(() => TryPerformSign(handsign));
             return;
         }
 
@@ -89,20 +99,20 @@ public class PlayerHandController : MonoBehaviour
         _allowSignChange = false;
     }
 
-    private void BufferSign(Handsign handsign)
+    private void BufferAction(Action action)
     {
         _bufferStartTime = Time.time;
-        _bufferedHandsign = handsign;
+        _bufferedAction = action;
         if(_bufferRoutine == null)
-            _bufferRoutine = StartCoroutine(PerformSignBufferIE());
+            _bufferRoutine = StartCoroutine(ActionBufferIE());
     }
 
-    IEnumerator PerformSignBufferIE()
+    IEnumerator ActionBufferIE()
     {
         yield return new WaitUntil(() => _allowSignChange);
 
         if (Time.time - _bufferStartTime < signBufferDecayTime)
-            TryPerformSign(_bufferedHandsign);
+            _bufferedAction?.Invoke();
 
         _bufferRoutine = null;
     }

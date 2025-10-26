@@ -11,6 +11,7 @@ public class RuntimeSpellDatabase : MonoBehaviour
         public UnityEvent effect;
     }
 
+    public SpellFunctionHub functionHub;
     public List<Spell> spellList;
     private Dictionary<int, Spell> spellDict;
 
@@ -23,15 +24,17 @@ public class RuntimeSpellDatabase : MonoBehaviour
         }
     }
 
-    public void TryExecuteSpell(int id)
+    public void ExecuteSpell(int id)
     {
         if (spellDict.ContainsKey(id))
             spellDict[id].effect.Invoke();
+        else
+            functionHub.Fart();
     }
 
-    public void TryExecuteSpell(List<Handsign> handsigns)
+    public void ExecuteSpell(List<Handsign> handsigns)
     {
-        TryExecuteSpell(HandsignToID(handsigns));
+        ExecuteSpell(HandsignToID(handsigns));
     }
 
     private int HandsignToID(List<Handsign> handsigns)
