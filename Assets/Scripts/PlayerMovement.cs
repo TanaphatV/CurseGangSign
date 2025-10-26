@@ -6,16 +6,34 @@ public class PlayerMovement : MonoBehaviour
     public float WalkSpeed = 6f;
     public float SprintSpeed = 10f;
     private float CurrentSpeed;
+    Vector3 velocity;
+    bool isGrounded;
+    bool IsWalking = false;
+    public float gravity = -9.81f;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         CurrentSpeed = WalkSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
+    // Grounded
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -1f;
+        }
+        //Walking Check
+
+        IsWalking = CurrentSpeed > 0f;
+
+
+    // Movement
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -29,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 move = transform.right * x + transform.forward * z;
-
         controller.Move(move * CurrentSpeed * Time.deltaTime);
+
+        // Gravity
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
