@@ -4,11 +4,26 @@ public class SpellFunctionHub : MonoBehaviour
 {
     public void Fire()
     {
-        Debug.Log("Fire");
+
     }
 
-    public void Ice()
+    public void Water()
     {
-        Debug.Log("Ice");
+
+    }
+
+    public void Electric()
+    {
+
+    }
+
+    public void Exorcise()
+    {
+
+    }
+
+    public void Fart()
+    {
+
     }
 }
