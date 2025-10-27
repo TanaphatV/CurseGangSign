@@ -12,6 +12,7 @@ public class PlayerHandController : MonoBehaviour
     [SerializeField] private RuntimeSpellDatabase spellDatabase;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem signParticle;
+    [SerializeField] private Transform partParent;
     [SerializeField] private SerializedDictionary<Handsign, GameObject> handsignSprites;
 
     private List<Handsign> handsigns;
@@ -39,22 +40,12 @@ public class PlayerHandController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            TryPerformSign(Handsign.Hippo);
+            TryPerformSign(Handsign.Fox);
             
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            TryPerformSign(Handsign.Crane);
-        }
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
             TryPerformSign(Handsign.Rat);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            TryPerformSign(Handsign.Fox);   
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -82,8 +73,8 @@ public class PlayerHandController : MonoBehaviour
 
     public void PlaySignParticle()
     {
-        signParticle.Stop();
-        signParticle.Play();
+        //signParticle.Stop();
+        Instantiate(signParticle, partParent,false);
     }
 
     private void TryPerformSign(Handsign handsign)
@@ -141,7 +132,7 @@ public enum Handsign
 { 
     Empty = 0,
     Tiger = 1,
-    Hippo = 2,
+    Fist = 2,
     Crane = 3,
     Rat = 4,
     Fox = 5
