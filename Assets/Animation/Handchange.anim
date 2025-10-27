@@ -464,21 +464,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 2
     messageOptions: 0
-  - time: 0.12857144
-    functionName: TriggerSignChange
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.14285715
+  - time: 0.08571429
     functionName: PlaySignParticle
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.18571429
+  - time: 0.08571429
+    functionName: TriggerSignChange
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.08571429
     functionName: SetAllowNextSign
     data: 
     objectReferenceParameter: {fileID: 0}
