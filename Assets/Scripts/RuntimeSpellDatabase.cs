@@ -42,7 +42,7 @@ public class RuntimeSpellDatabase : MonoBehaviour
         int spellId = 0;
         for (int i = 0; i < handsigns.Count; i++)
         {
-            spellId += ((int)handsigns[i] << i);
+            spellId += (int)((int)handsigns[i] * Mathf.Pow(10,i) );
         }
         return spellId;
     }
