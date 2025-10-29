@@ -31,7 +31,7 @@ public class SpellFunctionHub : MonoBehaviour
 
     public void Exorcise()
     {
-
+        EnemyManager.Instance.TryExorciseAll();
     }
 
     public void Fart()
