@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using AYellowpaper.SerializedCollections;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -55,5 +54,22 @@ public class AudioManager : MonoBehaviour
 
         globalSound.PlayOneShot(audioDictionary[key], volume);
         Debug.Log("Play Audio Clip: " + audioDictionary[key].ToString());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            PlayGlobalSound("tiger", 1f);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            PlayGlobalSound("crane", 1f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            PlayGlobalSound("fox", 1f);
+        }
     }
 }
