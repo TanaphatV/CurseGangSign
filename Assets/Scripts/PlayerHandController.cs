@@ -45,7 +45,7 @@ public class PlayerHandController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            TryPerformSign(Handsign.Rat);
+            TryPerformSign(Handsign.Crane);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -133,7 +133,7 @@ public enum Handsign
     Empty = 0,
     Tiger = 1,
     Fist = 2,
-    Crane = 3,
-    Rat = 4,
+    Point = 3,
+    Crane = 4,
     Fox = 5
 }

@@ -1,10 +1,12 @@
 using UnityEngine;
-
+using System;
 public class UnitHealth
 {
     // Fields
     int _currentHealth;
     int _currentMaxHealth;
+
+    public Action<float> onHealthChange;
 
     // Properties
     public int Health
@@ -16,6 +18,7 @@ public class UnitHealth
         set
         {
             _currentHealth = value;
+            onHealthChange?.Invoke((float)_currentHealth/(float)_currentMaxHealth);
         }
     }
     public int MaxHealth

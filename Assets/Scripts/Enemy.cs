@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHealbarTarget
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
 
     [System.NonSerialized] public bool canBeExorcised = false;
 
-    void Start()
+    void Awake()
     {
         unitHealth = new(maxHealth,maxHealth);
         player = GameObject.FindWithTag("Player").transform;
@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(DamageType damageType, int damage)
     {
-        Debug.Log("Take damage");
         var _damageToTake = damage;
         if (damageType == weakness)
             _damageToTake = damage * DamageMultiplier.normal;
@@ -40,9 +39,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Exorcise()
     {
+        Destroy(gameObject);
+    }
 
+    public UnitHealth GetUnitHealth()
+    {
+        return unitHealth;
     }
 }
 
