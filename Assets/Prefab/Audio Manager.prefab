@@ -201,6 +201,24 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: caef81bf6f2a2cf4e8ee6ccde57365ff, type: 3}
     - Key: handsign_cast
       Value: {fileID: 8300000, guid: cd6ef926ff85f704384fe83082e89654, type: 3}
+    - Key: skill_infernobeam
+      Value: {fileID: 8300000, guid: 97e20279d7bf67044960937287b5ffe9, type: 3}
+    - Key: skill_thunderbolt
+      Value: {fileID: 8300000, guid: f801cf2befea6ce4e85167fdf54e3107, type: 3}
+    - Key: skill_jetstream
+      Value: {fileID: 8300000, guid: 306a10b51bbae1d45b6a2161e5a6d79b, type: 3}
+    - Key: skill_exorcise
+      Value: {fileID: 8300000, guid: 25ca4eff694e34648aa2de4e93f93a0c, type: 3}
+    - Key: bass_drop
+      Value: {fileID: 8300000, guid: a82df870506689144bd955fde7fddf37, type: 3}
+    - Key: hurt1
+      Value: {fileID: 8300000, guid: 557d03ca5b90a1e47b53e077e230fdeb, type: 3}
+    - Key: hurt2
+      Value: {fileID: 8300000, guid: 36c1421bc4e1086469b16ec44769c964, type: 3}
+    - Key: hurt3
+      Value: {fileID: 8300000, guid: b885c7d3069796a40aeb125bfe445621, type: 3}
+    - Key: kick
+      Value: {fileID: 8300000, guid: 61996d21ccf02284e911de70f123b11d, type: 3}
   globalSound: {fileID: 2121670863521588128}
   mixer: {fileID: 24100000, guid: 462128d672f3e554d92d7bfe3d55b8d6, type: 2}
 --- !u!82 &2121670863521588128
