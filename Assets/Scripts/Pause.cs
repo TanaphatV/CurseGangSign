@@ -49,16 +49,16 @@ public class Pause : MonoBehaviour
 
     public void ChangeMasterVol()
     {
-        audioManager.AdjustMasterVolume(masterVolSlider.value);
+        AudioManager.Instance.AdjustMasterVolume(masterVolSlider.value);
     }
 
     public void ChangeBGMVol()
     {
-        audioManager.AdjustBGMVolume(bgmVolSlider.value);
+        AudioManager.Instance.AdjustBGMVolume(bgmVolSlider.value);
     }
 
     public void ChangeSFXVol()
     {
-        audioManager.AdjustSFXVolume(sfxVolSlider.value);
+        AudioManager.Instance.AdjustSFXVolume(sfxVolSlider.value);
     }
 }
