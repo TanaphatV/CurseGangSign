@@ -5,6 +5,8 @@ public class HandsignUIController : MonoBehaviour
 {
     [SerializeField] private PlayerHandController playerHandController;
 
+    [SerializeField] private AudioManager audioManager;
+
     [SerializeField] private List<HandsignUI> handsignUIs; 
 
     private void Start()
@@ -22,8 +24,11 @@ public class HandsignUIController : MonoBehaviour
                 continue;
             }
 
+
             handsignUIs[i].gameObject.SetActive(true);
             handsignUIs[i].SetSprite(handsigns[i]);
         }
+
+        audioManager.PlayOneShot("handsign_" + handsigns.Count.ToString(), 1.0f); // handsigns_ is 1 - 4, see audio dict.
     }
 }
