@@ -18,6 +18,8 @@ public class PlayerBody : MonoBehaviour, IHealbarTarget
         if(canBeDamaged)
         {
             unitHealth.DmgUnit(dmg);
+            if (unitHealth.Health <= 0)
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
             StartCoroutine(InvulnIE());
         }
     }
@@ -28,7 +30,6 @@ public class PlayerBody : MonoBehaviour, IHealbarTarget
 
     public UnitHealth GetUnitHealth()
     {
-        Debug.Log("Returnn unity");
         return unitHealth;
     }
 
