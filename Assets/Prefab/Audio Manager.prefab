@@ -183,6 +183,22 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 7c5c193b360ad6c4aa2ed17fe4e8bc38, type: 3}
     - Key: tiger
       Value: {fileID: 8300000, guid: 4ac24b242b39bf3409393e1eb4a479ed, type: 3}
+    - Key: spell_fire
+      Value: {fileID: 8300000, guid: 54e1caf8fca198c459eec5de1572ce11, type: 3}
+    - Key: spell_lightning
+      Value: {fileID: 8300000, guid: cdd635d582c6e9b4ba45cfb6b8792b83, type: 3}
+    - Key: spell_water
+      Value: {fileID: 8300000, guid: 205db0f90cf59a04386f2c256ee6278c, type: 3}
+    - Key: handsign_1
+      Value: {fileID: 8300000, guid: caef81bf6f2a2cf4e8ee6ccde57365ff, type: 3}
+    - Key: handsign_2
+      Value: {fileID: 8300000, guid: aac0f18727be14b4bb4c27b0ae4f2dd7, type: 3}
+    - Key: handsign_3
+      Value: {fileID: 8300000, guid: 112cfa45c3dd4e24eb0f3e764f4c7227, type: 3}
+    - Key: handsign_4
+      Value: {fileID: 8300000, guid: 475dc4d5c575f3340aaee65a2ff6db0c, type: 3}
+    - Key: handsign_cast
+      Value: {fileID: 8300000, guid: cd6ef926ff85f704384fe83082e89654, type: 3}
   globalSound: {fileID: 2121670863521588128}
   mixer: {fileID: 24100000, guid: 462128d672f3e554d92d7bfe3d55b8d6, type: 2}
 --- !u!82 &2121670863521588128
