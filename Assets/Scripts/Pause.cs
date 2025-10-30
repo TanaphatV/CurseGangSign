@@ -12,7 +12,7 @@ public class Pause : MonoBehaviour
 
     [Header("MANUALLY ASSIGN THESE FUCK YOU")]
     public MouseLook mouseLook;
-    public AudioManager audioManager;
+    //public AudioManager audioManager;
 
     void Start()
     {

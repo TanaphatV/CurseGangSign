@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour, IHealbarTarget
     public int damage;
 
     public GameObject stunMarker;
+    public GameObject exorciseMarker;
 
     public GameObject normalSprite;
     public GameObject deadSprite;
@@ -62,6 +63,7 @@ public class Enemy : MonoBehaviour, IHealbarTarget
         if (unitHealth.Health <= 0)
         {
             canBeExorcised = true;
+            exorciseMarker.SetActive(true);
         }
     }
 
