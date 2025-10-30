@@ -7,13 +7,17 @@ using AYellowpaper.SerializedCollections;
 public class PlayerHandController : MonoBehaviour
 {
     [SerializeField] private float signBufferDecayTime;
-    
+    [SerializeField] private float kickRadius;
+    [SerializeField] private float kickOffset;
+
     [Header("Reference")]
+    [SerializeField] private PlayerBody playerBody;
     [SerializeField] private RuntimeSpellDatabase spellDatabase;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem signParticle;
     [SerializeField] private Transform partParent;
     [SerializeField] private SerializedDictionary<Handsign, GameObject> handsignSprites;
+    [SerializeField] private SerializedDictionary<Handsign, string> handsignSoundKey;
 
     private List<Handsign> handsigns;
 
@@ -61,6 +65,33 @@ public class PlayerHandController : MonoBehaviour
             else
                 BufferAction(Fire);
         }
+
+        if (Input.GetMouseButtonDown(1) )
+        {
+            if (_allowSignChange)
+                Kick();
+            else
+                BufferAction(Kick);
+        }
+    }
+
+    private void Kick()
+    {
+        animator.SetTrigger("kick");
+        var _overlap = Physics.OverlapSphere(playerBody.transform.position + (playerBody.transform.forward * kickOffset), kickRadius);
+        foreach(var _go in _overlap)
+        {
+            if(_go.TryGetComponent(out Enemy enemy))
+            {
+                enemy.KnockBack(playerBody.transform.forward,50);
+            }
+        }
+        onHandsignChange?.Invoke(handsigns);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(playerBody.transform.position + (playerBody.transform.forward * kickOffset),kickRadius);
     }
 
     private void Fire()
@@ -84,7 +115,7 @@ public class PlayerHandController : MonoBehaviour
             BufferAction(() => TryPerformSign(handsign));
             return;
         }
-
+        AudioManager.Instance.PlayGlobalSound(handsignSoundKey[handsign],1.0f);
         animator.SetTrigger("Change");
         upcomingSign = handsign;
         _allowSignChange = false;

@@ -4,6 +4,9 @@ using AYellowpaper.SerializedCollections;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance => _instance;
+    private static AudioManager _instance = null;
+
     [SerializedDictionary("Audio Key", "Audio Clip")]
     public SerializedDictionary<string, AudioClip> audioDictionary;
 
@@ -13,6 +16,15 @@ public class AudioManager : MonoBehaviour
     const string MIXER_MASTER = "MASTERVolume";
     const string MIXER_SFX = "SFXVolume";
     const string MIXER_BGM = "BGMVolume";
+
+
+    private void Awake()
+    {
+        if (_instance != null)
+            Destroy(this);
+        else
+            _instance = this;
+    }
 
     public void AdjustMasterVolume(float value)
     {
@@ -56,20 +68,20 @@ public class AudioManager : MonoBehaviour
         Debug.Log("Play Audio Clip: " + audioDictionary[key].ToString());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            PlayGlobalSound("tiger", 1f);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PlayGlobalSound("crane", 1f);
-        }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Z))
+    //    {
+    //        PlayGlobalSound("tiger", 1f);
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.X))
+    //    {
+    //        PlayGlobalSound("crane", 1f);
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlayGlobalSound("fox", 1f);
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.C))
+    //    {
+    //        PlayGlobalSound("fox", 1f);
+    //    }
+    //}
 }

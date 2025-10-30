@@ -6,30 +6,44 @@ using System.Collections;
 public class Enemy : MonoBehaviour, IHealbarTarget
 {
     public NavMeshAgent agent;
-    public Transform player;
+    public PlayerBody player;
     public int maxHealth;
+    public float atkRange;
     public DamageType weakness;
     public UnitHealth unitHealth;
+    public int damage;
+
+
     public GameObject normalSprite;
     public GameObject deadSprite;
     public ParticleSystem exorciseParticle;
     public SerializedDictionary<DamageType, ParticleSystem> damageParticles;
 
-
-
     [System.NonSerialized] public bool canBeExorcised = false;
+
+    private bool isBeingKnocked = false;
+    private float originalAcceleration;
+    private float originalSpeed;
 
     void Awake()
     {
         unitHealth = new(maxHealth,maxHealth);
-        player = GameObject.FindWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerBody>();
+        originalAcceleration = agent.acceleration;
+        originalSpeed = agent.speed;
     }
 
     void Update()
     {
-        Vector3 playerPosition = player.position;
-
+        if (isBeingKnocked)
+            return;
+        Vector3 playerPosition = player.transform.position;
         agent.SetDestination(playerPosition);
+
+        if(Vector3.Distance(playerPosition,transform.position) <= atkRange)
+        {
+            player.PlayerTakeDmg(damage);
+        }
     }
 
     public void TakeDamage(DamageType damageType, int damage)
@@ -48,6 +62,29 @@ public class Enemy : MonoBehaviour, IHealbarTarget
         {
             canBeExorcised = true;
         }
+    }
+
+    Coroutine knockRoutine;
+    public void KnockBack(Vector3 vector, float force)
+    {
+        if (knockRoutine != null)
+            StopCoroutine(knockRoutine);
+        knockRoutine = StartCoroutine(KnockbackIE(vector, force));
+    }
+
+    IEnumerator KnockbackIE(Vector3 vector, float force)
+    {
+        isBeingKnocked = true;
+        agent.speed = force/2.0f;
+        agent.acceleration = force;
+        agent.SetDestination(transform.position + (vector * 10));
+        yield return new WaitForSeconds(0.3f);
+        agent.isStopped = true;
+        yield return new WaitForSeconds(0.9f);
+        agent.speed = originalSpeed;
+        agent.acceleration = originalAcceleration;
+        isBeingKnocked = false;
+        agent.isStopped = false;
     }
 
     public void Exorcise()

@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 4482103885014266039}
   - component: {fileID: 3058360767654030268}
   m_Layer: 5
-  m_Name: Rat
+  m_Name: Crane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,7 +541,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.4
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -661,6 +661,14 @@ MonoBehaviour:
       Value: {fileID: 4104172434077720514}
     - Key: 5
       Value: {fileID: 365299193824156320}
+  handsignSoundKey:
+    _serializedList:
+    - Key: 1
+      Value: tiger
+    - Key: 4
+      Value: crane
+    - Key: 5
+      Value: fox
 --- !u!95 &686223035937061190
 Animator:
   serializedVersion: 7
@@ -1054,6 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd27d27738f63a4b950397729ad9b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellFunctionHub
+  damagePerShot: 1
 --- !u!114 &5782315781658765597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,11 +1077,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RuntimeSpellDatabase
   functionHub: {fileID: 3516609456775113033}
   spellList:
-  - handsigns: 010000000100000001000000
+  - handsigns: 0100000005000000
     effect:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 3516609456775113033}
           m_TargetAssemblyTypeName: SpellFunctionHub, Assembly-CSharp
           m_MethodName: Fire
           m_Mode: 1
@@ -1084,13 +1093,45 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - handsigns: 020000000100000002000000
+  - handsigns: 0400000005000000
     effect:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 3516609456775113033}
           m_TargetAssemblyTypeName: SpellFunctionHub, Assembly-CSharp
-          m_MethodName: Ice
+          m_MethodName: Water
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - handsigns: 0500000004000000
+    effect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3516609456775113033}
+          m_TargetAssemblyTypeName: SpellFunctionHub, Assembly-CSharp
+          m_MethodName: Electric
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - handsigns: 010000000500000004000000
+    effect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3516609456775113033}
+          m_TargetAssemblyTypeName: SpellFunctionHub, Assembly-CSharp
+          m_MethodName: Exorcise
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
