@@ -22,6 +22,16 @@ public class EnemyManager : MonoBehaviour
     void Start()
     {
         activeEnemies = new();
+        SpawnEnemy();
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    public void SpawnEnemy()
+    {
         var enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Count)], null);
         enemy.transform.position = Vector3.zero;
         activeEnemies.Add(enemy);

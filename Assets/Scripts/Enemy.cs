@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
+using AYellowpaper.SerializedCollections;
+using System.Collections;
 
 public class Enemy : MonoBehaviour, IHealbarTarget
 {
@@ -8,6 +10,12 @@ public class Enemy : MonoBehaviour, IHealbarTarget
     public int maxHealth;
     public DamageType weakness;
     public UnitHealth unitHealth;
+    public GameObject normalSprite;
+    public GameObject deadSprite;
+    public ParticleSystem exorciseParticle;
+    public SerializedDictionary<DamageType, ParticleSystem> damageParticles;
+
+
 
     [System.NonSerialized] public bool canBeExorcised = false;
 
@@ -33,6 +41,9 @@ public class Enemy : MonoBehaviour, IHealbarTarget
             _damageToTake = damage * DamageMultiplier.weak;
 
         unitHealth.Health -= _damageToTake;
+        damageParticles[damageType].Stop();
+        damageParticles[damageType].Play();
+
         if (unitHealth.Health <= 0)
         {
             canBeExorcised = true;
@@ -41,6 +52,16 @@ public class Enemy : MonoBehaviour, IHealbarTarget
 
     public void Exorcise()
     {
+        StartCoroutine(ExorciseIE());
+    }
+
+    private IEnumerator ExorciseIE()
+    {
+        agent.isStopped = true;
+        exorciseParticle.Play();
+        deadSprite.SetActive(true);
+        normalSprite.SetActive(false);
+        yield return new WaitUntil(() => !exorciseParticle.IsAlive(true));
         Destroy(gameObject);
     }
 
