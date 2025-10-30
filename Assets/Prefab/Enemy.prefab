@@ -396,7 +396,7 @@ MonoBehaviour:
   player: {fileID: 0}
   maxHealth: 4
   atkRange: 2
-  weakness: 0
+  weakness: 1
   damage: 10
   stunMarker: {fileID: 2534748461877171801}
   normalSprite: {fileID: 777823439005710350}

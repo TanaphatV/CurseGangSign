@@ -5,17 +5,20 @@ public class SpellFunctionHub : MonoBehaviour
     public int damagePerShot;
     public void Fire()
     {
-        Fire(DamageType.fire); 
+        Fire(DamageType.fire);
+        AudioManager.Instance.PlayOneShot("skill_infernobeam",1.0f);
     }
 
     public void Water()
     {
         Fire(DamageType.water);
+        AudioManager.Instance.PlayOneShot("skill_jetstream", 1.0f);
     }
 
     public void Electric()
     {
         Fire(DamageType.lightning);
+        AudioManager.Instance.PlayOneShot("skill_thunderbolt", 1.0f);
     }
 
     private void Fire(DamageType damageType)
@@ -31,6 +34,8 @@ public class SpellFunctionHub : MonoBehaviour
 
     public void Exorcise()
     {
+        AudioManager.Instance.PlayOneShot("skill_exorcise", 1.0f);
+        AudioManager.Instance.PlayOneShot("bass_drop", 0.5f);
         EnemyManager.Instance.TryExorciseAll();
     }
 

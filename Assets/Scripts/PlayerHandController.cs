@@ -86,6 +86,7 @@ public class PlayerHandController : MonoBehaviour
                 enemy.KnockBack(playerBody.transform.forward,50);
             }
         }
+        AudioManager.Instance.PlayOneShot("kick", 1.0f);
         onHandsignChange?.Invoke(handsigns);
     }
 
@@ -99,6 +100,7 @@ public class PlayerHandController : MonoBehaviour
         animator.SetTrigger("Fire");
         spellDatabase.ExecuteSpell(handsigns);
         handsigns.Clear();
+        AudioManager.Instance.PlayOneShot("handsign_cast", 1.0f);
         onHandsignChange?.Invoke(handsigns);
     }
 

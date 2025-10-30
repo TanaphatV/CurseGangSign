@@ -29,6 +29,6 @@ public class HandsignUIController : MonoBehaviour
             handsignUIs[i].SetSprite(handsigns[i]);
         }
 
-        audioManager.PlayOneShot("handsign_" + handsigns.Count.ToString(), 1.0f); // handsigns_ is 1 - 4, see audio dict.
+        AudioManager.Instance.PlayOneShot("handsign_" + handsigns.Count.ToString(), 0.5f); // handsigns_ is 1 - 4, see audio dict.
     }
 }
