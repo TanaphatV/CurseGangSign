@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IHealbarTarget
     public UnitHealth unitHealth;
     public int damage;
 
+    public GameObject stunMarker;
 
     public GameObject normalSprite;
     public GameObject deadSprite;
@@ -78,9 +79,11 @@ public class Enemy : MonoBehaviour, IHealbarTarget
         agent.speed = force/2.0f;
         agent.acceleration = force;
         agent.SetDestination(transform.position + (vector * 10));
+        stunMarker.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         agent.isStopped = true;
         yield return new WaitForSeconds(0.9f);
+        stunMarker.SetActive(false);
         agent.speed = originalSpeed;
         agent.acceleration = originalAcceleration;
         isBeingKnocked = false;
