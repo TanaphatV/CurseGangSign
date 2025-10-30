@@ -197,6 +197,8 @@ MonoBehaviour:
       Value: {fileID: 8300000, guid: 112cfa45c3dd4e24eb0f3e764f4c7227, type: 3}
     - Key: handsign_4
       Value: {fileID: 8300000, guid: 475dc4d5c575f3340aaee65a2ff6db0c, type: 3}
+    - Key: handsign_5
+      Value: {fileID: 8300000, guid: caef81bf6f2a2cf4e8ee6ccde57365ff, type: 3}
     - Key: handsign_cast
       Value: {fileID: 8300000, guid: cd6ef926ff85f704384fe83082e89654, type: 3}
   globalSound: {fileID: 2121670863521588128}
